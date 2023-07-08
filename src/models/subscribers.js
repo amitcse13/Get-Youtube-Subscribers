@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+//creating schema for the database  
 const susbcriberSchema = new mongoose.Schema({
     name: {
         type: String,

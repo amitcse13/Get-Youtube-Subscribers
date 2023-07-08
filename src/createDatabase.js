@@ -4,18 +4,24 @@ const data = require('./data');
 const subscribers = require('./models/subscribers');
 
 // Connect to DATABASE
+
 const DATABASE_URL = "mongodb://localhost/subscribers";
+
 mongoose.connect("mongodb+srv://amitcse13:science@cluster0.0ayupdm.mongodb.net/?retryWrites=true&w=majority",{ useNewUrlParser: true, useUnifiedTopology: true });
+
 const db = mongoose.connection
 db.on('error', (err) => console.log(err))
 db.once('open', () => console.log('Database created...'))
 
+//refreshing data and deleting it if any previous data
 const refreshAll = async () => {
     try{
     await subscriberModel.deleteMany({},{wtimeout:50000});
     console.log("Deleted all subscribers");
 
-    // console.log(connection)
+    console.log(connection)
+    
+//inserting data
 
     const newdata= await subscriberModel.insertMany(data)
     console.log('Added ${newdata.length} New subscribers');

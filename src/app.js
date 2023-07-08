@@ -1,20 +1,24 @@
 
+//import required modules
 
 const express = require('express');
 const Subscriber=require("../src/models/subscribers.js");
 const path=require("path");
 
 const app = express();
+
+//home route
+
 app.get("/",(req,res)=>{
     res.sendFile(path.join(__dirname,"/index.html"));
 });
 
 
-// Your code goes here
+//subscribers route
 
 app.get("/subscribers",async(req,res,next)=>{
     try{
-        let subscribers=await Subscriber.find();
+        let subscribers=await Subscriber.find();//promise
         res.status(200).json(subscribers);
     }catch(error){
         res.status(500);
@@ -24,7 +28,7 @@ app.get("/subscribers",async(req,res,next)=>{
 
 });
 
-
+//subscriber name and subscribed channel route
 app.get("/subscribers/names",async(req,res,next)=>{
     try{
         let subscribers=await Subscriber.find({},{name:1,subscribedChannel:1,_id:0});
@@ -37,7 +41,7 @@ app.get("/subscribers/names",async(req,res,next)=>{
 });
 
 
-
+//fetch details of specific ids
 app.get("/subscribers/:id",async(req,res,next)=>{
     try{
         let id=req.params.id;
